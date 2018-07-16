@@ -4,15 +4,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Upload</title>
+<title>Enviar arquivo para processamento</title>
 </head>
 <body>
 
 <form action="/ProjetoDS/upload" method="post" enctype="multipart/form-data">
   <p>
-    <label for="file">Arquivo para fazer upload</label>
+    <h3><label for="file">Selecione um arquivo:</label></h3>
     <input type="file" name="file" />
-    <input type="submit" name="submit" value="Upload" />
+    <br><br>
+    <input type="submit" name="submit" value="Enviar" />
   </p>
 </form>
 

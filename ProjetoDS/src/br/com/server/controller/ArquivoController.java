@@ -20,7 +20,7 @@ import br.com.server.model.ArquivoModel;
 @Controller
 public class ArquivoController {
 
-	@RequestMapping("/form")
+	@RequestMapping("/enviarArquivo")
 	public String exibirForm() {
 		return "form";
 	}
@@ -35,7 +35,7 @@ public class ArquivoController {
 		
 		model.addAttribute("pathArquivo", arquivo.getPathArquivoExcel());
 		
-		return "exibir";
+		return "download";
 	}
 	
 	@RequestMapping(value = "/download", method = RequestMethod.POST)

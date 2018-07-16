@@ -11,15 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="ConfiguracaoEnvio")
 public class ConfiguracaoEnvioModel {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)   
 	private int id;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="ConfiguracaoTipoArquivo",
     		   joinColumns={@JoinColumn(name="idConfiguracao",  
     		   referencedColumnName="id")},  
@@ -27,7 +29,7 @@ public class ConfiguracaoEnvioModel {
     		   referencedColumnName="id")})
     private List<TipoArquivoModel> tiposArquivo;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="ConfiguracaoAplicacaoCaptura",
     		   joinColumns={@JoinColumn(name="idConfiguracao",  
     		   referencedColumnName="id")},  

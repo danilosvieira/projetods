@@ -2,7 +2,7 @@ package br.com.server.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Envio")
 public class EnvioModel {
 
 	@Id
@@ -30,6 +32,7 @@ public class EnvioModel {
 	@JoinColumn(name = "idTipoArquivo", referencedColumnName = "id")
 	private TipoArquivoModel tipoArquivo;
 	
+	@Column(name = "data")
 	private Date data;
 	
 	public int getId() {

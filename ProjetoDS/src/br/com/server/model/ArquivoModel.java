@@ -49,6 +49,7 @@ public class ArquivoModel {
 		String texto = "";
 		
 		try {
+			// De acordo com o tipo do arquivo, direciona ao método específico para a obtensão do texto.
 			if (extensao.equals("doc")) {
 				texto = this.extrairTextoArquivoDoc();
 			} else if (extensao.equals("docx")) {
@@ -67,8 +68,10 @@ public class ArquivoModel {
 		}
 		
 		if (!texto.equals("")) {
+			//Retorna Map contendo todas as palavras com respectiva frequencia no texto.
 			Map<String,Integer> mapPalavras = this.contabilizarFrequenciaPalavras(texto);
 			
+			//Percorre o Map para gerar o arquivo excel.
 			this.gerarArquivoExcel(mapPalavras);
 		}
 		
@@ -77,7 +80,7 @@ public class ArquivoModel {
 	private Map<String,Integer> contabilizarFrequenciaPalavras(String texto) {
 		Map<String,Integer> mapPalavras = new HashMap<String, Integer>(); 
 		
-		 // Converte texto para minúsculo
+		 // Converte todo o texto para minúsculo
         String minusculo = texto.toLowerCase();
          
         //Aplica a expressão regular
@@ -86,19 +89,22 @@ public class ArquivoModel {
         
         while(m.find())
         {
-          String palavra = m.group(); //pega uma palavra   
+          String palavra = m.group(); //pega uma palavra/token   
           Integer frequencia = mapPalavras.get(palavra); //verifica se  a palavra já está no mapa    
              
-            if (frequencia != null) { //se palavra existe, atualiza a frequencia
+            if (frequencia != null) { 
+            	//Encontrando a palavra, atualiza a frequencia incrementando 1.
                 mapPalavras.put(palavra, frequencia + 1);
-            } else { // se palavra não existe, insiro com um novo id e freq=1.
-                mapPalavras.put(palavra,1);
+            } else { 
+            	// Não encontrando a palavra, insere a palavra com valor de frequencia 1.
+                mapPalavras.put(palavra, 1);
             }
         }
 
 		return mapPalavras;
 	}
 	
+	//Utilização de Apache POI, Java API para documentos Microsoft
 	private void gerarArquivoExcel(Map<String,Integer> mapPalavras) {
 		HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Palavras");
@@ -133,12 +139,14 @@ public class ArquivoModel {
         }
 	}
 	
+	// Utilizado Apache POI, Java API para documentos Microsoft
 	private String extrairTextoArquivoDoc() throws FileNotFoundException, IOException {
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(this.arquivoUpload.getOriginalFilename()));
 		WordExtractor extractor = new WordExtractor(fs);
 		return extractor.getText();
 	}
 	
+	//Utilizado Apache POI, Java API para documentos Microsoft
 	private String extrairTextoArquivoDocx() throws FileNotFoundException, IOException {
 		XWPFDocument docx = new XWPFDocument(new FileInputStream(this.arquivoUpload.getOriginalFilename()));
 	    XWPFWordExtractor we = new XWPFWordExtractor(docx);
@@ -146,6 +154,7 @@ public class ArquivoModel {
 		return we.getText();
 	}
 	
+	//Utilizado Apache PDFBox para leitura do arquivo PDF
 	private String extrairTextoArquivoPdf() throws FileNotFoundException, IOException {
 		 
 		PDFParser parser;
@@ -178,6 +187,7 @@ public class ArquivoModel {
 	private String extrairTextoArquivoImagem() throws IOException {
 		String texto = "";
 		
+		//Solicitação HTTP para a API Google Cloud Vision, que faz a analise de imagens, podendo faszer detecção de texto.
 		String TARGET_URL = "https://vision.googleapis.com/v1/images:annotate?";
 		String API_KEY = "key=AIzaSyCasqKugf3S97qxgmpkBf4cUMLMgutsrB0";
 		

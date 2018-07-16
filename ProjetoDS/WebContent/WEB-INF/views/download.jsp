@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Download arquivo Excel</title>
 </head>
 <body>
 
 
-<form action="/ProjetoDS/download" method="post" enctype="multipart/form-data">
+<form name="formDownload" action="/ProjetoDS/download" method="post" enctype="multipart/form-data">
 <input type="hidden" name="pathArquivo" value="${pathArquivo}">
-<input type="submit" value="Download">
+<h3>Arquivo excel gerado:</h3> <br>
+<a href="javascript:formDownload.submit();">Download</a>
 
 </form>
 
